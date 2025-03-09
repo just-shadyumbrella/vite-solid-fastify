@@ -1,0 +1,23 @@
+{
+  "name": "vite-solid-fastify",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "dev:backend": "tsx --watch .",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "fastify": "latest",
+    "solid-js": "latest"
+  },
+  "devDependencies": {
+    "@types/node": "latest",
+    "typescript": "latest",
+    "tsx": "latest",
+    "vite": "latest",
+    "vite-plugin-solid": "latest"
+  }
+}
