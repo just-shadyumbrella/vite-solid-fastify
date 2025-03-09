@@ -5,18 +5,27 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "dev:backend": "tsx --watch .",
-    "build": "tsc -b && vite build",
+    "dev:server": "tsx --watch src/server",
+    "build": "pnpm build:client && pnpm build:server",
+    "build:client": "tsc -b && vite build",
+    "build:server": "rollup -c",
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fastify/static": "latest",
     "fastify": "latest",
+    "@solidjs/router": "latest",
     "solid-js": "latest"
   },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "latest",
+    "@rollup/plugin-json": "latest",
+    "@rollup/plugin-node-resolve": "latest",
+    "@rollup/plugin-typescript": "latest",
     "@types/node": "latest",
-    "typescript": "latest",
+    "rollup": "latest",
     "tsx": "latest",
+    "typescript": "latest",
     "vite": "latest",
     "vite-plugin-solid": "latest"
   }

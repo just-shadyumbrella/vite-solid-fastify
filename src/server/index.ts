@@ -1,5 +1,5 @@
-// works on Node v14.13.0+
 import { fastify } from 'fastify'
+import serveStatic from '@fastify/static'
 
 const app = fastify({
   logger: true,
@@ -20,9 +20,12 @@ const schema = {
   },
 }
 
-app.get('/api', schema, async function (req, reply) {
+app.get('/api', schema, async function () {
   return { message: 'Hello from Fastify!' }
 })
+
+// Serve vite generated html
+app.register(serveStatic, { root: process.cwd() })
 
 app
   .listen({ port: 3000 })
