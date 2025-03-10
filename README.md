@@ -17,7 +17,7 @@ npm run dev:backend
 npm run dev
 ```
 
-## Deploy
+## Build
 
 ```bash
 npm run build
@@ -32,6 +32,10 @@ npm run build:client
 # Server
 npm run build:server
 ```
+
+You can now serve the production build with `npm run preview`. Or just run `node .` at [`dist`](./dist/index.js) folder, it's generally fully portable an minified by `esbuild`. You can adjust the build output by editing the [`vite.config.ts`](./vite.config.ts) file for front-end and [`rollup.config.js`](./rollup.config.js) for back-end.
+
+The API endpoint also works alongside [Solid Router](https://docs.solidjs.com/solid-router), including 404 and 500 error pages. Check out [`src/client/index.tsx`](./src/client/index.tsx#L23) and see how the Fastify server handles SPA requests in [`src/server/index.ts`](./src/server/index.ts#L33).
 
 ### Learn more on the [Solid Website](https://solidjs.com) and come chat with us on our [Discord](https://discord.com/invite/solidjs)
 

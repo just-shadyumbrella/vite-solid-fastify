@@ -5,6 +5,7 @@ import { Router, Route } from '@solidjs/router'
 import './index.css'
 import Home from './App.tsx'
 import { About } from './About.tsx'
+import { NotFound, ServerFault } from './Error.tsx'
 
 const root = document.getElementById('app')
 
@@ -19,6 +20,8 @@ function App() {
     <Router>
       <Route path='/' component={Home} />
       <Route path='/about' component={About} />
+      <Route path='*404' component={NotFound} />
+      <Route path='*500' component={ServerFault} />
     </Router>
   )
 }

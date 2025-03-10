@@ -1,20 +1,21 @@
 {
   "name": "vite-solid-fastify",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "dev:server": "tsx --watch src/server",
     "build": "pnpm build:client && pnpm build:server",
     "build:client": "tsc -b && vite build",
-    "build:server": "rollup -c",
+    "build:server": "rollup -c --configPlugin typescript",
     "preview": "vite preview"
   },
   "dependencies": {
     "@fastify/static": "latest",
-    "fastify": "latest",
     "@solidjs/router": "latest",
+    "dotenv": "latest",
+    "fastify": "latest",
     "solid-js": "latest"
   },
   "devDependencies": {
@@ -23,8 +24,11 @@
     "@rollup/plugin-node-resolve": "latest",
     "@rollup/plugin-typescript": "latest",
     "@types/node": "latest",
+    "esbuild": "latest",
     "rollup": "latest",
+    "rollup-plugin-esbuild": "latest",
     "tsx": "latest",
+    "tslib": "latest",
     "typescript": "latest",
     "vite": "latest",
     "vite-plugin-solid": "latest"
