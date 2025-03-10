@@ -1,6 +1,6 @@
 # Vite + Solid ~ Rollup + Fastify
 
-A simple example to develop front-end app with Vite and SolidJS as well as Fastify back-end support through Vite's [`server.proxy`](https://vite.dev/config/server-options#server-proxy) config ([see](./vite.config.ts#L12)), and bundled with Rollup.
+A simple example to develop front-end app with Vite and SolidJS, as well as Fastify back-end support through Vite's [`server.proxy`](https://vite.dev/config/server-options#server-proxy) [config](./vite.config.ts#L12) and bundled with Rollup.
 
 ## Usage
 
