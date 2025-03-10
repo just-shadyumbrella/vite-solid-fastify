@@ -41,4 +41,4 @@ The API endpoint also works alongside [Solid Router](https://docs.solidjs.com/so
 
 ## Deployment
 
-Learn more about deploying your application with the [documentations](https://vite.dev/guide/static-deploy.html)
+Learn more about deploying your application with the [documentations](https://vite.dev/guide)

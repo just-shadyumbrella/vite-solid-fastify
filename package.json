@@ -8,8 +8,8 @@
     "dev:server": "tsx --watch src/server",
     "build": "pnpm build:client && pnpm build:server",
     "build:client": "tsc -b && vite build",
-    "build:server": "rollup -c --configPlugin typescript",
-    "preview": "vite preview"
+    "build:server": "rollup -c --configPlugin \"rollup-plugin-esbuild\" && node -e \"require('fs').renameSync('dist/index.js', 'dist/server.cjs')\"",
+    "preview": "node dist/server.cjs"
   },
   "dependencies": {
     "@fastify/static": "latest",
@@ -22,13 +22,11 @@
     "@rollup/plugin-commonjs": "latest",
     "@rollup/plugin-json": "latest",
     "@rollup/plugin-node-resolve": "latest",
-    "@rollup/plugin-typescript": "latest",
     "@types/node": "latest",
     "esbuild": "latest",
     "rollup": "latest",
     "rollup-plugin-esbuild": "latest",
     "tsx": "latest",
-    "tslib": "latest",
     "typescript": "latest",
     "vite": "latest",
     "vite-plugin-solid": "latest"

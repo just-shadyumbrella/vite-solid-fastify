@@ -1,17 +1,17 @@
 /* @refresh reload */
 import { render } from 'solid-js/web'
-import { Router, Route } from '@solidjs/router'
+import { Route, Router } from '@solidjs/router'
 
 import './index.css'
-import Home from './App.tsx'
-import { About } from './About.tsx'
-import { NotFound, ServerFault } from './Error.tsx'
+import Home from './App'
+import About from './About'
+import { NotFound, ServerFault } from './Error'
 
 const root = document.getElementById('app')
 
 if (import.meta.env.DEV && !(root instanceof HTMLElement)) {
   throw new Error(
-    'Root element not found. Did you forget to add it to your index.html? Or maybe the id attribute got misspelled?',
+    'Root element not found. Did you forget to add it to your index.html? Or maybe the id attribute got misspelled?'
   )
 }
 

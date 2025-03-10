@@ -1,8 +1,8 @@
-import { fastify } from 'fastify'
-import serveStatic from '@fastify/static'
-import { dotenv } from './util'
 import { readFileSync } from 'fs'
 import { join } from 'path'
+import { fastify } from 'fastify'
+import serveStatic from '@fastify/static'
+import { dotenv, probablyBrowser } from './util'
 
 const env = dotenv() // It's optional whether you might prefer `config()` method
 const API = new URL(env?.API_ENDPOINT || 'http://localhost:3000/api')
@@ -26,13 +26,17 @@ const schema = {
 const app = fastify({
   logger: env?.NODE_ENV === 'development',
 })
-const fallback = readFileSync(join(env?.ROOT || process.cwd(), 'index.html')) // Handle by SPA through entry point
+const fallback = readFileSync(join(env?.ROOT || process.cwd(), 'index.html')) // SPA entry point
 
 // Serve vite generated html
 app.register(serveStatic, { root: env?.ROOT || process.cwd() })
 
-app.setNotFoundHandler((_, reply) => {
-  reply.status(404).header('Content-Type', 'text/html').send(fallback)
+app.setNotFoundHandler((request, reply) => {
+  if (probablyBrowser(request.headers)) {
+    reply.status(404).header('Content-Type', 'text/html').send(fallback) // Let it handle by SPA router
+  } else {
+    reply.status(404).send('Not found')
+  }
 })
 
 app.setErrorHandler((error, _, reply) => {
@@ -56,14 +60,8 @@ async function main() {
 // Console input handler
 process.stdin.on('data', (data) => {
   switch (data.toString().trim()) {
-    case 'r':
-      console.log('Restarting server...')
-      app.server?.close(() => {
-        main()
-      })
-      break
     case 'q':
-      console.log('Quitting...')
+      console.log('Closing server...') // Restart is probably impossible: https://github.com/fastify/fastify/issues/2411
       process.exit(0)
       break
     case 'c':

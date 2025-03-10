@@ -1,6 +1,7 @@
 import { existsSync, readFileSync } from 'fs'
 import { join } from 'path'
 import { parse } from 'dotenv'
+import { IncomingHttpHeaders } from 'http'
 
 export function dotenv() {
   try {
@@ -15,4 +16,12 @@ export function dotenv() {
   } catch (error) {
     console.error(error)
   }
+}
+
+export function probablyBrowser(headers: IncomingHttpHeaders): boolean {
+  return !!(
+    headers['user-agent']?.includes('Mozilla/5.0') &&
+    headers['accept']?.includes('text/html') &&
+    headers['sec-ch-ua']
+  )
 }

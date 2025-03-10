@@ -1,6 +1,6 @@
 import AppCss from './App.css?inline'
 
-export function About() {
+function About() {
   return (
     <>
       <div>
@@ -10,3 +10,5 @@ export function About() {
     </>
   )
 }
+
+export default About
