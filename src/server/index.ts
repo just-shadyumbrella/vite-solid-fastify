@@ -4,9 +4,10 @@ import { dotenv } from './util'
 import { readFileSync } from 'fs'
 import { join } from 'path'
 
-const env = dotenv()
+const env = dotenv() // It's optional whether you might prefer `config()` method
 const API = new URL(env?.API_ENDPOINT || 'http://localhost:3000/api')
 
+// Optional, read more the docs
 const schema = {
   schema: {
     response: {
@@ -25,7 +26,7 @@ const schema = {
 const app = fastify({
   logger: env?.NODE_ENV === 'development',
 })
-const fallback = readFileSync(join(env?.ROOT || process.cwd(), 'index.html'))
+const fallback = readFileSync(join(env?.ROOT || process.cwd(), 'index.html')) // Handle by SPA through entry point
 
 // Serve vite generated html
 app.register(serveStatic, { root: env?.ROOT || process.cwd() })
@@ -52,6 +53,7 @@ async function main() {
   console.log('Press `r` to restart, `q` to quit, `c` to clear.')
 }
 
+// Console input handler
 process.stdin.on('data', (data) => {
   switch (data.toString().trim()) {
     case 'r':
