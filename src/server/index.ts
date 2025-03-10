@@ -47,8 +47,28 @@ app.get(API.pathname, schema, async function () {
 })
 
 async function main() {
-  app.listen({ port: Number(API.port || 80), host: API.hostname }).catch(console.error)
+  app.listen({ port: Number(API.port || 80), host: API.hostname })
   if (env?.NODE_ENV === 'production') console.log('Server running at', API.toString().replace(API.pathname, ''))
+  console.log('Press `r` to restart, `q` to quit, `c` to clear.')
 }
+
+process.stdin.on('data', (data) => {
+  switch (data.toString().trim()) {
+    case 'r':
+      console.log('Restarting server...')
+      app.server?.close(() => {
+        main()
+      })
+      break
+    case 'q':
+      console.log('Quitting...')
+      process.exit(0)
+      break
+    case 'c':
+      process.stdout.write('\u001b[2J\u001b[0;0H')
+      console.log('Console cleared.')
+      break
+  }
+})
 
 main()
