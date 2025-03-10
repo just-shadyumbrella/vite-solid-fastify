@@ -39,11 +39,16 @@ app.setNotFoundHandler((request, reply) => {
   }
 })
 
-app.setErrorHandler((error, _, reply) => {
-  reply
-    .status(error?.statusCode || 500)
-    .header('Content-Type', 'text/html')
-    .send(fallback)
+app.setErrorHandler((error, request, reply) => {
+  if (probablyBrowser(request.headers)) {
+    reply
+      .status(error?.statusCode || 500)
+      .header('Content-Type', 'text/html')
+      .send(fallback)
+  } else {
+    reply.status(error?.statusCode || 500).send('Server fault')
+    console.error(error)
+  }
 })
 
 // Not must be `/api`, don't forget to update `vite.config.ts`'s `server.proxy`

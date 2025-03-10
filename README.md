@@ -1,6 +1,6 @@
 # Vite + Solid ~ Rollup + Fastify
 
-A simple example to develop front-end app with Vite and SolidJS, as well as Fastify back-end support through Vite's [`server.proxy`](https://vite.dev/config/server-options#server-proxy) [config](./vite.config.ts#L12) and bundled with Rollup.
+A simple example to develop front-end app with Vite and SolidJS, as well as Fastify back-end support through Vite's [`server.proxy`](https://vite.dev/config/server-options#server-proxy) [config](./vite.config.ts#L15) and bundled with Rollup.
 
 ## Usage
 
@@ -35,7 +35,7 @@ npm run build:server
 
 You can now serve the production build with `npm run preview`. Or just run `node .` at [`dist`](./dist/index.js) folder, it's generally fully portable and minified by `esbuild`. You can adjust the build output by editing the [`vite.config.ts`](./vite.config.ts) file for front-end and [`rollup.config.ts`](./rollup.config.ts) for back-end.
 
-The API endpoint also works alongside [Solid Router](https://docs.solidjs.com/solid-router), including 404 and 500 error pages. Check out [`src/client/index.tsx`](./src/client/index.tsx#L23) and see how the Fastify server handles SPA requests in [`src/server/index.ts`](./src/server/index.ts#L33).
+The API endpoint also works alongside [Solid Router](https://docs.solidjs.com/solid-router), including 404 and 500 error pages. Check out [`src/client/index.tsx`](./src/client/index.tsx#L23) and see how the Fastify server handles SPA requests in [`src/server/index.ts`](./src/server/index.ts#L34).
 
 ### Learn more on the [Solid Website](https://solidjs.com) and come chat with us on our [Discord](https://discord.com/invite/solidjs)
 
