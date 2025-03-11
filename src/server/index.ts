@@ -2,10 +2,12 @@ import { readFileSync } from 'fs'
 import { join } from 'path'
 import { fastify } from 'fastify'
 import serveStatic from '@fastify/static'
-import { dotenv, probablyBrowser } from './util'
+import { probablyBrowser } from './util'
+import { config } from 'dotenv'
 
-const env = dotenv() // It's optional whether you might prefer `config()` method
-const API = new URL(env?.API_ENDPOINT || 'http://localhost:3000/api')
+config()
+
+const API = new URL(process.env.API_ENDPOINT || 'http://localhost:3000/api')
 
 // Optional, read more the docs
 const schema = {
@@ -24,12 +26,12 @@ const schema = {
 }
 
 const app = fastify({
-  logger: env?.NODE_ENV === 'development',
+  logger: process.env.NODE_ENV === 'development',
 })
-const fallback = readFileSync(join(env?.ROOT || process.cwd(), 'index.html')) // SPA entry point
+const fallback = readFileSync(join(process.env.ROOT || process.cwd(), 'index.html')) // SPA entry point
 
 // Serve vite generated html
-app.register(serveStatic, { root: env?.ROOT || process.cwd() })
+app.register(serveStatic, { root: process.env.ROOT || process.cwd() })
 
 app.setNotFoundHandler((request, reply) => {
   if (probablyBrowser(request.headers)) {
@@ -58,8 +60,8 @@ app.get(API.pathname, schema, async function () {
 
 async function main() {
   app.listen({ port: Number(API.port || 80), host: API.hostname })
-  if (env?.NODE_ENV === 'production') console.log('Server running at', API.toString().replace(API.pathname, ''))
-  console.log('Press `r` to restart, `q` to quit, `c` to clear.')
+  if (process.env.NODE_ENV === 'production') console.log('Server running at', API.toString().replace(API.pathname, ''))
+  console.log('Press `q` to quit, `c` to clear.')
 }
 
 // Console input handler
@@ -67,7 +69,7 @@ process.stdin.on('data', (data) => {
   switch (data.toString().trim()) {
     case 'q':
       console.log('Closing server...') // Restart is probably impossible: https://github.com/fastify/fastify/issues/2411
-      process.exit(0)
+      process.exit(0) // You can respawn by using `pm2` or implement platform-specific logic using `start` command in Windows for example.
       break
     case 'c':
       process.stdout.write('\u001b[2J\u001b[0;0H')

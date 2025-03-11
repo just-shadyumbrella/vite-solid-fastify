@@ -9,7 +9,9 @@
     "build": "pnpm build:client && pnpm build:server",
     "build:client": "tsc -b && vite build",
     "build:server": "rollup -c --configPlugin \"rollup-plugin-esbuild\" && node -e \"require('fs').renameSync('dist/index.js', 'dist/server.cjs')\"",
-    "preview": "node dist/server.cjs"
+    "preview": "pm2 start ./dist/server.cjs --name server --watch",
+    "stop": "pm2 stop server",
+    "monitor": "pm2 monit"
   },
   "dependencies": {
     "@fastify/static": "latest",
@@ -27,6 +29,7 @@
     "rollup": "latest",
     "rollup-plugin-esbuild": "latest",
     "tsx": "latest",
+    "pm2": "latest",
     "typescript": "latest",
     "vite": "latest",
     "vite-plugin-solid": "latest"

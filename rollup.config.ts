@@ -2,9 +2,9 @@ import resolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
 import json from '@rollup/plugin-json'
 import esbuild from 'rollup-plugin-esbuild'
-import { dotenv } from './src/server/util'
+import { config } from 'dotenv'
 
-const env = dotenv()
+config()
 
 export default {
   input: 'src/server/index.ts',
@@ -16,8 +16,8 @@ export default {
     resolve({ preferBuiltins: true }),
     commonjs(),
     esbuild({
-      minify: env?.NODE_ENV === 'production',
-      sourceMap: env?.NODE_ENV === 'development',
+      minify: process.env.NODE_ENV === 'production',
+      sourceMap: process.env.NODE_ENV === 'development',
     }),
     json(),
   ],

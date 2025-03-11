@@ -1,11 +1,11 @@
 import { defineConfig } from 'vite'
 import solid from 'vite-plugin-solid'
-import { dotenv } from './src/server/util'
+import { config } from 'dotenv'
 
-const env = dotenv()
+config
 
-const DEV = new URL(env?.DEV_URL || 'http://localhost:5173')
-const API = new URL(env?.API_ENDPOINT || 'http://localhost:3000/api')
+const DEV = new URL(process.env.DEV_URL || 'http://localhost:5173')
+const API = new URL(process.env.API_ENDPOINT || 'http://localhost:3000/api')
 
 export default defineConfig({
   plugins: [solid()],
